@@ -213,3 +213,6 @@ ScamSentry is free software, released under the [GNU General Public License v3.0
 ---
 
 *A hackathon prototype, not affiliated with any bank, government body or the services listed above.*
+
+
+*Made with assistance from claude/anthropic*
