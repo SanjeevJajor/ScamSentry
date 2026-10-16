@@ -2,7 +2,7 @@
 **An explainable scam and malware-redirect shield for Chrome. It warns you before you click, not after you pay.**
 Built by team **Hental Mealth** (Computer Applications Hons. Data Science, Chandigarh University) for the **CODE YUDH** hackathon, Open Innovation track.
 
-> **Status:** working prototype, version 0.2.0. It runs fully inside the browser. There is no server of our own and no LLM yet. See [Roadmap](#roadmap) for what comes next.
+> **Status:** working prototype, version 0.2.0. It runs fully inside the browser. There is no server of our own and no LLM yet. See <a src="https://github.com/SanjeevJajor/ScamSentry/blob/main/Roadmap"> Roadmap </a> for what comes next.
 ---
 ## Why we built this
 Online scams in India are growing very fast. Ministry of Home Affairs data, reported by ThePrint, shows about **28.15 lakh cybercrime complaints in 2025** (24% more than 2024) and about **₹22,495 crore lost**, with investment scams causing roughly three-quarters of it.
