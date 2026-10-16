@@ -1,0 +1,102 @@
+# ScamSentry Roadmap
+
+Where ScamSentry is today and where we want to take it. Team **Hental Mealth** (Computer Applications Hons. Data Science, Chandigarh University).
+
+The big idea does not change: **warn at the moment of reading, not after the payment, and always explain why.**
+
+Legend: ✅ done in the prototype · 🔨 next · 🔭 later · 💡 vision
+
+---
+
+## Phase 0: Prototype (v0.2.0) ✅
+
+Everything here already works inside the browser, with no server of our own.
+
+- ✅ Chrome extension on Manifest V3
+- ✅ Explainable 0–100 score where every point has a reason
+- ✅ Address checks: raw IPs, punycode, `@` tricks, fake brand names, fake `gov` sites, risky endings, free website builders
+- ✅ On-device scam wording rules for Indian scams (fees, task earnings, KYC and OTP threats, digital arrest, prizes, fake virus and update prompts, APK lures)
+- ✅ Domain age lookup (RDAP) with caching and rate limiting
+- ✅ Public phishing feed and optional URLhaus malware list
+- ✅ Blocking page for known malware sites
+- ✅ Redirect chain tracking ("how did I get here?")
+- ✅ Warning banner, popup, settings page and trusted sites list
+
+---
+
+## Phase 1: Make it stronger 🔨
+
+*Goal: fewer misses and fewer false alarms, using what we already have.*
+
+- [ ] Build a labelled test set (around 100 real scam messages and 100 normal ones) and measure recall and false-positive rate
+- [ ] Tune rule weights and score levels against that test set
+- [ ] Add a "Not a scam" button and a "Report this page" button in the popup
+- [ ] Add unit tests for the pure modules (`url-analyzer`, `scoring`, `redirects`, feed parsing)
+- [ ] Expand the bundled lists (more Indian banks, government sites, job portals, shorteners)
+- [ ] Show a short first-run tour that explains the badge and the reasons
+- [ ] Publish the extension on the Chrome Web Store
+
+**Target numbers (goals, not results yet):** catch at least 90% of real scams, wrongly flag at most 5% of safe pages, and show a warning in under 2 seconds.
+
+---
+
+## Phase 2: AI and community 🔨
+
+*Goal: understand scam wording better than regex can, and learn from other people's reports.*
+
+- [ ] **AI risk engine:** an LLM that reads only suspicious snippets, names the scam type and gives one plain-English reason
+  - strict JSON output, so the reply can never break the parser
+  - the AI adds to the score, and never sets it alone
+  - message passed as quoted data to resist prompt injection
+  - falls back to the current rules if the AI is slow or down
+- [ ] **Scan API** (Python + FastAPI) that runs feeds, domain age and AI in parallel and caches results for 24 hours
+- [ ] **Community blocklist:** confirmed reports are saved, merged by domain and counted, and checked first on every scan
+  - reports accepted only above a score threshold, and repeat reports needed before blocking, to stop fake reports
+- [ ] **Report portal** (Next.js + Tailwind): a threat dossier page with a risk meter, flagged link and AI summary, plus a "Confirm & Submit" button
+- [ ] **Manual scanner** on the website to paste any link or message
+- [ ] Keep privacy first: clean pages are cleared on the device and only short suspicious snippets ever leave the browser
+
+---
+
+## Phase 3: Wider reach 🔭
+
+*Goal: protect people wherever scams reach them.*
+
+- [ ] Hindi and Hinglish scam detection
+- [ ] QR code and screenshot scanning (OCR)
+- [ ] Firefox and Edge versions
+- [ ] Personal dashboard of blocked threats
+- [ ] Site-specific helpers for Gmail and WhatsApp Web, with selectors kept in one config file so a layout change does not break us
+
+---
+
+## Phase 4: Vision 💡
+
+*Goal: a scam shield for every screen.*
+
+- [ ] Android app that checks SMS and notifications
+- [ ] On-device AI, so it works offline and data never leaves the phone
+- [ ] Live alerts during scam calls using speech-to-text
+- [ ] Pre-filled complaints for cybercrime.gov.in and the 1930 helpline
+- [ ] Open threat-feed API for banks and telecoms, so every confirmed report protects more people
+
+---
+
+## Known risks we plan for
+
+| Risk | Plan |
+|---|---|
+| False alarms on genuine messages | CAUTION level before HIGH, verified-domain allowlist, "Not a scam" button |
+| Privacy of personal chats and email | Rules run on the device, short snippets only, nothing stored unless reported |
+| Prompt injection inside scam text | Quoted data, strict JSON, AI never decides the score alone |
+| Free API limits | Caching and fallback to feeds and rules |
+| Fake reports against genuine sites | Score threshold and repeat reports before blocking |
+| Gmail or WhatsApp layout changes | Selectors in one config file, fall back to scanning every link |
+
+---
+
+## Want to help?
+
+Ideas, scam examples and bug reports are welcome. Open an issue, or send a pull request for any item above. By contributing you agree your work is released under GPL-3.0, like the rest of the project.
+
+*Plans can change as we learn. This roadmap is a direction, not a promise.*
